@@ -20,7 +20,7 @@ const EDUCATION = [
   {
     school: "Dwarkadas J. Sanghvi College of Engineering",
     href: LINKS.djsce,
-    detail: "B.Tech in Computer Engineering — Honors in Intelligent Computing",
+    detail: "B.Tech in Computer Engineering - Honors in Intelligent Computing",
     meta: "Mumbai, India · 9.24 CGPA",
   },
 ];
@@ -34,7 +34,7 @@ export default function About() {
       <div className="grid gap-12 lg:grid-cols-[0.4fr_0.6fr] lg:gap-16">
         {/* Heading */}
         <div>
-          <span className="font-mono text-sm text-accent-cyan">// about me</span>
+          <span className="font-mono text-sm text-accent-cyan">{"// about me"}</span>
           <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
             A bit about
             <br />

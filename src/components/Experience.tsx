@@ -8,7 +8,7 @@ const EXPERIENCE = [
     org: "USC Alfred E. Mann School of Pharmacy and Pharmaceutical Sciences",
     team: "Dogra Lab",
     href: "https://mann.usc.edu/",
-    period: "March 2026 — Present",
+    period: "March 2026 - Present",
     summary:
       "Built LLM-powered systems that automate scientific literature mining and structured data extraction for pharmaceutical R&D, spanning antibody, siRNA, and lipid-nanoparticle research.",
     points: [
@@ -87,7 +87,7 @@ export default function Experience() {
         {/* Heading */}
         <div className="lg:sticky lg:top-24 lg:self-start">
           <span className="font-mono text-sm text-accent-cyan">
-            // experience
+            {"// experience"}
           </span>
           <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
             Where I&apos;ve
