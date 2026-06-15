@@ -44,35 +44,13 @@ const ArrowIcon = () => (
 // TODO: replace these with your real profile URLs / resume file
 const LINKS = {
   github: "https://github.com/sakshigangwani",
-  linkedin: "https://www.linkedin.com/in/sakshigangwani",
+  linkedin: "https://www.linkedin.com/in/sakshi-gangwani/",
   resume: "/resume.pdf",
 };
 
 export default function Hero() {
   return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 sm:px-8">
-      {/* Nav */}
-      <nav className="animate-fade-up flex items-center justify-between py-7">
-        <a href="#" className="flex items-center gap-2.5 font-semibold tracking-tight">
-          <span className="flex gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-accent-violet shadow-[0_0_12px_var(--accent-violet)]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-accent-cyan shadow-[0_0_12px_var(--accent-cyan)]" />
-          </span>
-          <span>Sakshi Gangwani</span>
-        </a>
-        <div className="hidden items-center gap-8 text-sm text-muted sm:flex">
-          <a href="#projects" className="transition-colors hover:text-foreground">
-            Projects
-          </a>
-          <a href={LINKS.github} className="transition-colors hover:text-foreground">
-            GitHub
-          </a>
-          <a href={LINKS.linkedin} className="transition-colors hover:text-foreground">
-            LinkedIn
-          </a>
-        </div>
-      </nav>
-
+    <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 pt-16 sm:px-8">
       {/* Hero grid */}
       <div className="grid flex-1 items-center gap-12 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">
         {/* Left: copy */}
@@ -108,7 +86,7 @@ export default function Hero() {
             className="animate-fade-up mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
             style={{ animationDelay: "0.28s" }}
           >
-            AI Engineer at{" "}
+            AI Research Engineer at{" "}
             <strong className="font-semibold text-foreground">
               USC Alfred E. Mann School of Pharmacy
             </strong>{" "}
@@ -119,9 +97,12 @@ export default function Hero() {
             , building intelligent systems end-to-end from ML models and
             retrieval pipelines to the full-stack products around them. And yes,
             one of those projects even got a{" "}
-            <strong className="font-semibold text-foreground">
+            <a
+              href="#patent"
+              className="font-semibold text-foreground underline decoration-accent-cyan/50 decoration-2 underline-offset-2 transition-colors hover:text-accent-cyan"
+            >
               published patent
-            </strong>{" "}
+            </a>{" "}
             with my name on it.
           </p>
 

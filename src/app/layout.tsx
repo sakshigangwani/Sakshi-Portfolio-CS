@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sakshi Gangwani - AI Engineer & Full-Stack Developer",
   description:
-    "AI Engineer at USC Alfred E. Mann School of Pharmacy and CS Master's student at USC Viterbi, building intelligent systems end-to-end - from ML models and retrieval pipelines to the full-stack products around them.",
+    "AI Research Engineer at USC Alfred E. Mann School of Pharmacy and CS Master's student at USC Viterbi, building intelligent systems end-to-end - from ML models and retrieval pipelines to the full-stack products around them.",
 };
 
 export default function RootLayout({

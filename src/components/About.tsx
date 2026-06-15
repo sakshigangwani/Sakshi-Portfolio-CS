@@ -5,7 +5,7 @@ const LINKS = {
 };
 
 const STATS = [
-  { value: "9.24", label: "B.Tech CGPA" },
+  { value: "3.5/4", label: "USC GPA" },
   { value: "1", label: "Patent as inventor" },
   { value: "Honors", label: "Intelligent Computing" },
 ];
@@ -15,7 +15,7 @@ const EDUCATION = [
     school: "USC Viterbi School of Engineering",
     href: LINKS.viterbi,
     detail: "M.S. in Computer Science",
-    meta: "University of Southern California · Los Angeles, CA",
+    meta: "University of Southern California · Los Angeles, CA · 3.5/4 GPA",
   },
   {
     school: "Dwarkadas J. Sanghvi College of Engineering",

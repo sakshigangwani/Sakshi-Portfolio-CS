@@ -21,6 +21,41 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    slug: "gas-pipe-leakage-detection-ml",
+    title: "Gas Pipe Leakage Detection - ML Model",
+    tagline:
+      "The machine-learning brain of a patented IoT robot - it reads live LPG, temperature, and humidity telemetry and clusters it to flag gas leaks in pipelines in real time.",
+    image: "/patent/gas-leakage-clusters.jpeg",
+    github:
+      "https://github.com/sakshigangwani/ML-model-for-detecting-Gas-Pipe-Leakage",
+    stack: [
+      "Python",
+      "scikit-learn",
+      "K-Means",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "IoT Telemetry",
+    ],
+    star: {
+      situation:
+        "Gas-pipe leaks are dangerous and often go unnoticed until they're serious. An IoT inspection robot can patrol pipelines and stream sensor data - but raw LPG, temperature, and humidity readings on their own don't tell you whether a leak is actually happening.",
+      task: "Build the ML layer that turns a robot's live multi-sensor telemetry into a clear, real-time leak / no-leak decision - and make it the detection engine behind a patented IoT system.",
+      action: [
+        "Worked from an IoT telemetry dataset, selecting the three signals that matter for leak detection: humidity, LPG concentration, and temperature.",
+        "Used the elbow method (WCSS over k = 1–10) to objectively choose the optimal number of clusters rather than guessing.",
+        "Trained a K-Means model (k = 3, k-means++ init, fixed random_state for reproducibility) to separate normal operating conditions from leak-like signatures.",
+        "Built a real-time inference path: a new (humidity, LPG, temperature) reading is mapped to its nearest cluster, and leak-characteristic clusters (elevated LPG with telltale humidity/temperature ranges) raise a \"Gas Leakage Detected\" alert.",
+        "Visualized the learned structure as a 3D scatter plot of the clusters and their centroids to validate and communicate the separation.",
+      ],
+      result: [
+        "Became the detection engine of an IoT-enabled leak-detection robot that was filed as a patent and recognized with a Letter of Appreciation from the college.",
+        "Turns three cheap sensor readings into an instant, automatable leak decision - no manual inspection required.",
+        "Reproducible and interpretable: fixed seeding plus a 3D cluster visualization make the model's behavior easy to inspect and explain.",
+      ],
+    },
+  },
+  {
     slug: "notion-knowledge-assistant-mcp",
     title: "Notion Knowledge Assistant - MCP Server",
     tagline:
@@ -61,7 +96,132 @@ const PROJECTS: Project[] = [
       ],
     },
   },
+  {
+    slug: "flowsync-ai-health-assistant",
+    title: "FlowSync - Multi-Agent AI Health Assistant",
+    tagline:
+      "A production-style, multi-agent RAG system for women's health: a hybrid router sends each question to one of three specialized LLM agents, every answer grounded in a Pinecone vector store.",
+    image: "/projects/flowsync.svg",
+    github: "https://github.com/sakshigangwani/FlowSync-AI-Health-Assistant",
+    stack: [
+      "Python 3",
+      "LangChain",
+      "OpenAI LLM",
+      "RAG",
+      "Pinecone",
+      "Hugging Face",
+      "Sentence-Transformers (all-MiniLM-L6-v2)",
+      "Flask",
+      "Multi-Agent Orchestration",
+      "pypdf",
+    ],
+    star: {
+      situation:
+        "General-purpose health chatbots are single bloated prompts - they give ungrounded, one-size-fits-all answers, and a medical question, a symptom description, and a lifestyle query all get handled the same way.",
+      task: "Build an applied-LLM product end to end - data ingestion, vector retrieval, agent orchestration, API, and a real-time chat client - that specializes answers by domain and grounds every response in source documents, under real cost and latency constraints.",
+      action: [
+        "Decomposed the system into three specialized LLM agents (Medical, Symptom, Lifestyle), each with independently tuned decoding params and retrieval depth (temp 0.3-0.5, k=3-4) so prompts stay small, auditable, and domain-accurate.",
+        "Built a hybrid router: a low-temperature LLM classifier labels each query MEDICAL/SYMPTOM/LIFESTYLE, with a deterministic keyword-scoring fallback that takes over on any LLM error or timeout - the routing step never hard-fails.",
+        "Grounded answers with RAG behind a MedicalRetriever abstraction - local Sentence-Transformers embeddings (all-MiniLM-L6-v2, 384-dim) and cosine top-k search over a serverless Pinecone index - so the vector backend or embedding model can change without touching agent code.",
+        "Made it cost-aware: routing uses a cheap ~50-token call and only the chosen specialist runs the expensive generation, while local embeddings avoid per-query embedding API costs.",
+        "Kept clean seams for scale: an offline indexing job (PDF -> 500-char chunks -> embed -> upsert) decoupled from a stateless serving path, with the SymptomAgent able to delegate to the MedicalAgent for collaboration.",
+        "Served it over a Flask REST API (structured /api/chat with agent metadata, plus /get backing a streaming chat UI with typing and retrieval animations).",
+      ],
+      result: [
+        "Every answer is grounded in retrieved source documents and tagged with the agent that produced it, so responses are domain-specific and traceable rather than generic.",
+        "Graceful degradation by design - the keyword fallback guarantees the router stays available at zero extra cost even when the LLM classifier fails.",
+        "Cost and latency stay low: a tiny classification call routes to one specialist, and local embeddings remove per-query embedding spend.",
+        "Modular and swappable - independent agents, a retriever abstraction over Pinecone, and an offline batch index mean each piece can be scaled or replaced in isolation.",
+      ],
+    },
+  },
+  {
+    slug: "ai-resume-analyzer",
+    title: "AI Resume Analyzer",
+    tagline:
+      "A Streamlit app that parses a resume PDF into a structured profile and scores it against any job description - returning a match score, missing skills, and personalized improvement suggestions via an LLM.",
+    image: "/projects/resume-analyzer.svg",
+    github: "https://github.com/sakshigangwani/ai-resume-analyzer",
+    stack: [
+      "Python",
+      "Streamlit",
+      "OpenAI API (gpt-4.1-mini)",
+      "pdfplumber",
+      "LLM Prompting",
+      "JSON Extraction",
+    ],
+    star: {
+      situation:
+        "Tailoring a resume to a job posting is slow and guesswork-heavy - candidates can't easily see how well they match a role or which specific skills they're missing, and recruiters skim hundreds of unstructured PDFs.",
+      task: "Build a tool that turns a raw resume PDF into structured data and objectively measures it against a target job description, with concrete, actionable feedback - all without storing the user's API key.",
+      action: [
+        "Extracted raw text from uploaded resume PDFs with pdfplumber, then prompted gpt-4.1-mini to return a structured JSON profile - skills, education, experience, projects, patents, publications, awards, certifications, languages, courses, and contact links.",
+        "Built a matching step that sends the parsed resume plus a pasted job description to the LLM and returns a 0-100 match score, the missing skills, and personalized suggestions to improve.",
+        "Split the codebase into clear modules - parser.py (PDF extraction + resume parsing), matcher.py (resume-to-JD comparison), and app.py (Streamlit UI) - so parsing and matching are independently testable.",
+        "Designed a two-tab Streamlit UI: a Parsed Resume view showing the structured profile and a Match Analysis view showing score, gaps, and suggestions.",
+        "Handled the API key safely - entered in the sidebar and used only for the current session, with an OPENAI_API_KEY environment variable as a fallback.",
+      ],
+      result: [
+        "Converts an unstructured PDF into a clean, structured profile in seconds, ready to display or feed into downstream tooling.",
+        "Gives candidates an objective, per-role match score plus a concrete list of missing skills and improvements - turning vague 'tailor your resume' advice into specific action items.",
+        "Keeps the user in control of their credentials: the key lives only in the session, never persisted.",
+        "Modular and lightweight - three small Python files and three dependencies (streamlit, openai, pdfplumber) make it easy to run, read, and extend.",
+      ],
+    },
+  },
+  {
+    slug: "collabdocs-realtime-editor",
+    title: "CollabDocs - Real-Time Collaborative Editor",
+    tagline:
+      "A production-grade real-time collaborative document editor (think Google Docs / Notion), architected from a FAANG-level engineering spec - CRDT-based multi-user editing, version history, and granular permissions across a TypeScript monorepo.",
+    image: "/projects/collabdocs.svg",
+    github: "https://github.com/sakshigangwani/CollabDocs-Real-Time-Collaborative-Docs",
+    stack: [
+      "TypeScript",
+      "Turborepo + pnpm",
+      "React 18 + Vite",
+      "Fastify",
+      "Prisma + PostgreSQL",
+      "Redis",
+      "MinIO / S3",
+      "JWT (jose) + Argon2",
+      "Zod",
+      "Docker Compose",
+    ],
+    star: {
+      situation:
+        "Real-time collaborative editing - multiple cursors, conflict-free merges, offline support, version history - is one of the hardest problems in product engineering, and most side projects skip the design rigor that makes it actually correct at scale.",
+      task: "Design and build a Google-Docs-class collaborative editor to a production-grade engineering spec (CRDT real-time collaboration with sub-100ms latency, offline-first reconciliation, document version history, and granular per-document permissions) - and lay a foundation a real team could execute on.",
+      action: [
+        "Authored a full FAANG-level engineering specification - product features, user journeys, system architecture, data models, real-time collaboration algorithms (Yjs CRDTs over a custom WebSocket server), service decomposition, and a scaling/observability strategy.",
+        "Scaffolded a type-safe Turborepo + pnpm monorepo: a Fastify API, a React 18 + Vite web app, and a shared package of Zod-validated request/response contracts reused across client and server.",
+        "Modeled the core domain in Prisma/PostgreSQL - users, workspaces and roles, documents with snapshot versioning, and a polymorphic document-ACL table (user / workspace / link principals) backing owner/editor/commenter/viewer permissions.",
+        "Implemented secure authentication from scratch: Argon2 password hashing, short-lived HS256 JWT access tokens (jose), and opaque refresh tokens stored hashed in Postgres with rotation and revocation.",
+        "Stood up the full local infra with Docker Compose - PostgreSQL, Redis (sessions / presence / awareness fanout), and MinIO (S3-compatible snapshot & attachment storage) - each with health checks.",
+        "Built the web foundation - marketing, auth, and onboarding flows with a React Router app shell, protected routes, an auth context, and React Hook Form + Zod validation shared with the backend.",
+      ],
+      result: [
+        "A clear, defensible architecture for the hard parts - CRDT convergence, offline reconciliation, presence, and snapshot versioning - documented before a line of the editor was written.",
+        "A working, type-safe monorepo foundation: shared contracts mean the API and UI can't drift, and `docker compose up` brings the whole backend stack online locally.",
+        "Production-minded auth and data modeling from day one - hashed rotating refresh tokens and a flexible ACL model that already supports shareable-link and workspace-wide access.",
+        "Structured for real teamwork: independent services, a single source of truth for types, and turbo-cached build/typecheck/test pipelines across every package.",
+      ],
+    },
+  },
 ];
+
+// Display order for the projects grid.
+const PROJECT_ORDER = [
+  "notion-knowledge-assistant-mcp",
+  "collabdocs-realtime-editor",
+  "flowsync-ai-health-assistant",
+  "gas-pipe-leakage-detection-ml",
+  "ai-resume-analyzer",
+];
+
+const ORDERED_PROJECTS = [...PROJECTS].sort(
+  (a, b) => PROJECT_ORDER.indexOf(a.slug) - PROJECT_ORDER.indexOf(b.slug)
+);
 
 function useInView<T extends HTMLElement>(threshold = 0.15) {
   const ref = useRef<T>(null);
@@ -363,7 +523,7 @@ export default function Projects() {
 
       {/* Grid */}
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:gap-8">
-        {PROJECTS.map((project, i) => (
+        {ORDERED_PROJECTS.map((project, i) => (
           <Reveal key={project.slug} delay={i * 100}>
             <ProjectCard project={project} onOpen={() => setActive(project)} />
           </Reveal>
