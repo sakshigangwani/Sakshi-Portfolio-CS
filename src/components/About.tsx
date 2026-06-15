@@ -21,7 +21,7 @@ const EDUCATION = [
     school: "Dwarkadas J. Sanghvi College of Engineering",
     href: LINKS.djsce,
     detail: "B.Tech in Computer Engineering - Honors in Intelligent Computing",
-    meta: "Mumbai, India · 9.24 CGPA",
+    meta: "Mumbai, India",
   },
 ];
 
@@ -81,9 +81,7 @@ export default function About() {
             >
               Dwarkadas J. Sanghvi College of Engineering
             </a>
-            , Mumbai, graduating with a{" "}
-            <strong className="font-semibold text-foreground">9.24 CGPA</strong>.
-            Along the way I led a full-stack DevOps team at a hardware startup,
+            , Mumbai. Along the way I led a full-stack DevOps team at a hardware startup,
             built industrial IoT systems, and{" "}
             <strong className="font-semibold text-foreground">
               published a patent as an inventor
