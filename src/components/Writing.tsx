@@ -1,5 +1,14 @@
 const POSTS = [
   {
+    title: "NLP: How Machines Learned to Read Between the Lines",
+    blurb:
+      "A friendly tour through Natural Language Processing - how it grew from rigid rule-based systems to machine learning and finally the Transformer architecture that taught machines to actually understand the language we speak.",
+    href: "https://medium.com/@gangwani.sakshi15/nlp-how-machines-learned-to-read-between-the-lines-05f0068631a4",
+    date: "Jun 2026",
+    readingTime: "4 min read",
+    tags: ["NLP", "Transformers", "Deep Learning", "AI"],
+  },
+  {
     title: "The Algorithm Arc Nobody Saw Coming",
     blurb:
       "How I went from dreading Data Structures & Algorithms to actually enjoying the grind - swapping outcome-anxiety for process, leaning on visualization, and letting consistency do the heavy lifting on the road to FAANG interviews.",
