@@ -1,5 +1,14 @@
 const POSTS = [
   {
+    title: "RAG Explained: How AI Stops Making Things Up",
+    blurb:
+      "A plain-English look at Retrieval-Augmented Generation - why language models hallucinate, how giving them a search step grounds their answers in real sources, and what makes RAG the backbone of trustworthy AI applications.",
+    href: "https://medium.com/@gangwani.sakshi15/rag-explained-how-ai-stops-making-things-up-0a5de06a2d38",
+    date: "Jun 2026",
+    readingTime: "5 min read",
+    tags: ["RAG", "LLMs", "Retrieval", "AI"],
+  },
+  {
     title: "NLP: How Machines Learned to Read Between the Lines",
     blurb:
       "A friendly tour through Natural Language Processing - how it grew from rigid rule-based systems to machine learning and finally the Transformer architecture that taught machines to actually understand the language we speak.",
