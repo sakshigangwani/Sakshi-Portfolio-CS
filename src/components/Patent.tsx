@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 const ML_REPO = "https://github.com/sakshigangwani/ML-model-for-detecting-Gas-Pipe-Leakage";
 const LETTER_PDF = "/patent/appreciation-letter.pdf";
@@ -30,23 +29,6 @@ const PATENT = {
     "K-Means",
     "Mobile App",
     "Sensors",
-  ],
-  images: [
-    {
-      src: "/patent/robot-prototype-v2.jpg",
-      alt: "The IoT gas-leak detection robot prototype with project poster",
-      caption: "The working robot prototype",
-    },
-    {
-      src: "/patent/gas-leakage-clusters.jpeg",
-      alt: "3D K-Means clustering of gas leakage telemetry (humidity, LPG, temperature)",
-      caption: "K-Means clusters of leak vs. normal readings",
-    },
-    {
-      src: "/patent/appreciation-letter.png",
-      alt: "Letter of Appreciation from the college Principal",
-      caption: "Letter of Appreciation",
-    },
   ],
 };
 
@@ -130,78 +112,7 @@ const PatentIcon = () => (
   </svg>
 );
 
-const CloseIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-5 w-5"
-  >
-    <path d="M18 6 6 18M6 6l12 12" />
-  </svg>
-);
-
-function Lightbox({
-  src,
-  alt,
-  onClose,
-}: {
-  src: string;
-  alt: string;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background/85 p-4 backdrop-blur-sm sm:p-10"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label={alt}
-    >
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Close"
-        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-border-soft bg-background/60 text-foreground/90 backdrop-blur transition-colors hover:border-white/30 hover:bg-background/90"
-      >
-        <CloseIcon />
-      </button>
-      <div
-        className="animate-fade-up relative max-h-full w-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          width={1200}
-          height={1200}
-          unoptimized
-          className="max-h-[85vh] w-auto rounded-2xl border border-border-soft object-contain shadow-[0_40px_120px_-30px_rgba(0,0,0,0.9)]"
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function Patent() {
-  const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
-
   return (
     <section
       id="patent"
@@ -224,8 +135,8 @@ export default function Patent() {
           {/* Ambient glow */}
           <div className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-accent-violet/15 blur-3xl" />
 
-          <div className="relative grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:gap-12">
-            {/* Left: details */}
+          <div className="relative">
+            {/* Details */}
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-accent-violet/40 bg-accent-violet/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-accent-cyan">
                 <PatentIcon />
@@ -304,61 +215,9 @@ export default function Patent() {
                 </a>
               </div>
             </div>
-
-            {/* Right: image gallery */}
-            <div className="flex flex-col gap-4">
-              {/* Main image */}
-              <button
-                type="button"
-                onClick={() => setZoom(PATENT.images[0])}
-                className="group/img relative aspect-[4/3] overflow-hidden rounded-2xl border border-border-soft"
-              >
-                <Image
-                  src={PATENT.images[0].src}
-                  alt={PATENT.images[0].alt}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover transition-transform duration-700 group-hover/img:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 rounded-full bg-background/70 px-3 py-1 text-xs text-foreground/90 backdrop-blur">
-                  {PATENT.images[0].caption}
-                </span>
-              </button>
-
-              {/* Two smaller images */}
-              <div className="grid grid-cols-2 gap-4">
-                {PATENT.images.slice(1).map((img) => (
-                  <button
-                    key={img.src}
-                    type="button"
-                    onClick={() => setZoom(img)}
-                    className="group/img relative aspect-[4/3] overflow-hidden rounded-2xl border border-border-soft bg-white/[0.02]"
-                  >
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      unoptimized
-                      sizes="(max-width: 1024px) 50vw, 20vw"
-                      className="object-cover transition-transform duration-700 group-hover/img:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                    <span className="absolute bottom-2 left-2 right-2 truncate rounded-full bg-background/70 px-2.5 py-1 text-[0.7rem] text-foreground/90 backdrop-blur">
-                      {img.caption}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
         </article>
       </Reveal>
-
-      {zoom && (
-        <Lightbox src={zoom.src} alt={zoom.alt} onClose={() => setZoom(null)} />
-      )}
     </section>
   );
 }
