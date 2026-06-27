@@ -21,6 +21,49 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    slug: "sqlsense-llm-sql-generator",
+    title: "SQLSense - LLM-Based SQL Query Generator",
+    tagline:
+      "A full-stack text-to-SQL system: ask a question in plain English and SQLSense grounds an LLM with your live schema plus semantically retrieved examples, then safely runs the generated query - read-only - and returns SQL and results.",
+    image: "/projects/sqlsense.svg",
+    github:
+      "https://github.com/sakshigangwani/SQLSense-LLM-Based-SQL-Query-Generator",
+    stack: [
+      "Python",
+      "FastAPI",
+      "LangChain",
+      "RAG / Few-Shot",
+      "ChromaDB",
+      "Sentence-Transformers",
+      "Gemini / OpenAI / Anthropic",
+      "SQLAlchemy + SQLite",
+      "React + Vite",
+      "TypeScript",
+      "Tailwind CSS",
+      "TanStack Query",
+    ],
+    star: {
+      situation:
+        "Most people who need answers from a database can't write SQL, and a raw LLM asked to generate SQL hallucinates table and column names because it has no idea what the actual schema looks like.",
+      task: "Build a full-stack text-to-SQL product that turns plain-English questions into correct, schema-grounded SQL, executes it safely, and stays usable on a user's own uploaded data - without leaking write access to the database.",
+      action: [
+        "Designed a RAG pipeline that injects two things into every prompt: the live database schema and the most semantically similar worked question→SQL pairs, so the model is grounded in the exact tables it's querying.",
+        "Retrieved few-shot examples by embedding the question with HuggingFace sentence-transformers and running a similarity search over a ChromaDB store of 25 curated question→SQL pairs.",
+        "Made the LLM provider swappable behind LangChain - Gemini, OpenAI, or Anthropic Claude - selected via .env, so the backend isn't locked to one vendor.",
+        "Added a data-upload path: users drop in Excel / CSV / JSON / TSV, and the app infers the schema, sanitizes column names, and spins up a private per-user SQLite database to query.",
+        "Hardened execution for safety - SELECT-only guards plus SQLite read-only mode - and added schema-aware recovery that retries once with the error fed back to the model.",
+        "Built a transparent React + Vite + TypeScript UI (Tailwind, TanStack Query, syntax-highlighted SQL) that shows the generated query, the results, and the retrieved examples side by side.",
+        "Designed for offline-first operation: graceful degradation to a mock LLM, a hashing embedder, and an in-memory vector store so the app runs with no API keys.",
+      ],
+      result: [
+        "Turns a natural-language question into correct, schema-grounded SQL and live results - no SQL knowledge required from the user.",
+        "Few-shot retrieval plus the injected schema sharply cut hallucinated tables/columns versus prompting the LLM cold.",
+        "Safe by construction - read-only execution and SELECT-only guards mean a generated query can never mutate the database.",
+        "Works on any dataset and any provider: bring-your-own-data uploads, a swappable LLM backend, and a no-API-key offline mode for local runs.",
+      ],
+    },
+  },
+  {
     slug: "gas-pipe-leakage-detection-ml",
     title: "Gas Pipe Leakage Detection - ML Model",
     tagline:
@@ -212,6 +255,7 @@ const PROJECTS: Project[] = [
 
 // Display order for the projects grid.
 const PROJECT_ORDER = [
+  "sqlsense-llm-sql-generator",
   "notion-knowledge-assistant-mcp",
   "collabdocs-realtime-editor",
   "flowsync-ai-health-assistant",
